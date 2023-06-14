@@ -17,11 +17,10 @@ const App = () => {
       // dataType: 'application/json',
       success: (responseData) => {
         let response = JSON.parse(responseData);
-        console.log(`ajax request sent successfully, response: ${response}`);
         setRepos(response);
       }
     });
-  }, [])
+  }, [repos])
 
   const onChange = (e) => {
     setTerm(e.target.value);
@@ -41,8 +40,8 @@ const App = () => {
   return (
     <div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={repos}/>
       <Search onSearch={onSearch} onChange={onChange}/>
+      <RepoList repos={repos}/>
     </div>
   );
 }
