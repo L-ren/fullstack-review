@@ -46,18 +46,25 @@ let save = (repos) => {
 
 let getTop25 = (callback) => {
   // return top 25 repos
-  console.log(`getTop25 called!`);
-  Repo.find({}, (err, docs) => {
+  // console.log(`getTop25 called!`);
+  // Repo.find({}, (err, docs) => {
     // this doesn't seem efficient to pull all documents from the database
     // sort docs array by decreasing stargazer number
-    docs.sort((a, b) => {
-      if (a.starGazers < b.starGazers) {return  1}
-      else if (a.starGazers > b.starGazers) {return -1}
-      else {return 0}
-    });
+  //   docs.sort((a, b) => {
+  //     if (a.starGazers < b.starGazers) {return  1}
+  //     else if (a.starGazers > b.starGazers) {return -1}
+  //     else {return 0}
+  //   });
 
-    callback(docs.slice(0, 25));
-  });
+  //   callback(docs.slice(0, 25));
+  // });
+
+  // TRY THIS:
+  Repo.find({})
+    .sort({starGazers: -1})
+    .limit(25)
+    .exec()
+    .then((docs) => {callback(docs)});
 };
 
 module.exports.save = save;
